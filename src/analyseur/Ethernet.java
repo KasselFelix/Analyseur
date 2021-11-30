@@ -29,7 +29,6 @@ public class Ethernet extends Protocol {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		Protocol.add(new IP(trace.subList(14, 34)));
 	}
 	
