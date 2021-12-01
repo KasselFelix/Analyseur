@@ -1,7 +1,6 @@
 package analyseur;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import util.TraceReader;
@@ -15,7 +14,7 @@ public class Protocol {
 	private StringBuilder sb=new StringBuilder();
 	
 	public Protocol() {
-		String file = "data/udp.txt";
+		String file = "data/UDP_DNS";
 		TraceReader t= new TraceReader(file);
 		trace=t.getOctet();
 		pListe=new ArrayList<Protocol>();
@@ -25,15 +24,14 @@ public class Protocol {
 		this.octet=octet;
 	}
 	
-	public void run() {
-		Protocol.add(new Ethernet(trace.subList(0, 13)));
-		Collections.reverse(pListe);
+	public void run() throws Exception{
+		Protocol.add(new Ethernet(trace.subList(0, 14)));
 		for(Protocol protocole : pListe) 
 			sb.append(protocole.toString());
 	}
 	
 	public static void add(Protocol p) {
-		pListe.add(p);
+		pListe.add(0,p);
 	}
 	
 	@Override
@@ -46,10 +44,10 @@ public class Protocol {
 			try {
 				return Integer.parseInt(oct,16);
 			}catch(NumberFormatException e) {
-				System.out.println("caractere non existant dans la base 16!");
+				System.err.println("Error : \""+oct+"\" caractere non existant dans la base 16!");
 			}
 		}
-		throw new Exception("format de trame incorrect :-(");
+		throw new Exception("Error : \""+oct+"\" format de trame incorrect :-(");
 	}
 
 }

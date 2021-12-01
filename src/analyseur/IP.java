@@ -24,20 +24,12 @@ public class IP extends Protocol {
 		super(octet);
 		this.octet=octet;
 		
-		for(String o : octet.subList(12,16)) {
-			if(sourceIP!="")sourceIP+=":";
-			try {
-				sourceIP+=octToDec(o);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	
-		
-		for(String o : octet.subList(16,20)) {
+		for(int i=octet.size()-4;i<octet.size();i++) {
+			if(sourceIP!="")sourceIP+=".";
 			if(destinationIP!="")destinationIP+=".";
 			try {
-				destinationIP+=octToDec(o);
+				sourceIP+=octToDec(octet.get(i-4));
+				destinationIP+=octToDec(octet.get(i));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -50,9 +42,9 @@ public class IP extends Protocol {
 	@Override
 	public String toString() {
 		StringBuilder sb= new StringBuilder();
-		sb.append("IPV\n");
-		sb.append("Destination: "+destinationIP+"\n");
-		sb.append("Source: "+sourceIP+"\n");
+		sb.append("Internet Protocol Version\n");
+		sb.append("\tSource: "+sourceIP+"\n");
+		sb.append("\tDestination: "+destinationIP+"\n");
 		return sb.toString();
 	}
 

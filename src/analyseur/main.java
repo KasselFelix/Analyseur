@@ -5,9 +5,13 @@ import util.TraceReader;
 public class main {
 
 	public static void main(String args[]) {
-		Protocol p=new Protocol();
-		p.run();
-		System.out.println(p);
+		try {
+			Protocol p=new Protocol();
+			p.run();
+			System.out.println(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	

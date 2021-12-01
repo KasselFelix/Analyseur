@@ -10,26 +10,20 @@ public class Ethernet extends Protocol {
     private String type;
     private String crc;
     //https://hpd.gasmi.net/
-	public Ethernet( List<String> octet) {
+	public Ethernet( List<String> octet) throws Exception {
 		super(octet);
 		this.octet=octet;
 		
 		for(int i=0;i<6;i++) {
 			if(destMac!="")destMac+=":";
 			destMac+=octet.get(i);
-		}
-		
-		for(int i=6;i<12;i++) {
 			if(srcMac!="")srcMac+=":";
-			srcMac+=octet.get(i);
+			srcMac+=octet.get(i+6);
 		}
-		
-		try {
-			type=octet.get(12)+octet.get(13);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Protocol.add(new IP(trace.subList(14, 34)));
+
+		type=octet.get(12)+octet.get(13);
+		if(type.equals("0800") || type.equals("0x86dd"))Protocol.add(new IP(trace.subList(14, 34)));
+		else throw new Exception("Error : Trame "+type(type)+" non pris en charge.");
 	}
 	
 	private String type(String type) throws Exception {
@@ -44,6 +38,8 @@ public class Ethernet extends Protocol {
 				return "RARP";
 			case "8098":
 				return "Appletalk";
+			case "0x86dd":
+				return "IPv6";
 		}
 		throw new Exception("Type non reconnue");
 	}
@@ -51,10 +47,14 @@ public class Ethernet extends Protocol {
 	@Override
 	public String toString() {
 		StringBuilder sb= new StringBuilder();
-		sb.append("ethernet\n");
-		sb.append("Destination: "+destMac+"\n");
-		sb.append("Source: "+srcMac+"\n");
-		sb.append("type:"+type(type)+" (0x"+type+")\n");
+		try {
+			sb.append("Ethernet II, Src: "+srcMac+" ("+srcMac+"), Dst: "+destMac+" ("+destMac+")\n");
+			sb.append("\tDestination: "+destMac+"\n");
+			sb.append("\tSource: "+srcMac+"\n");
+			sb.append("\tType: "+type(type)+" (0x"+type+")\n");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return sb.toString();
 	}
 	
