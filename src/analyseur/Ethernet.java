@@ -9,7 +9,7 @@ public class Ethernet extends Protocol {
     private String destMac="";
     private String type;
     private String crc;
-    //https://hpd.gasmi.net/
+    
 	public Ethernet( List<String> octet) throws Exception {
 		super(octet);
 		this.octet=octet;

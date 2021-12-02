@@ -14,7 +14,7 @@ public class Protocol {
 	private StringBuilder sb=new StringBuilder();
 	
 	public Protocol() {
-		String file = "data/UDP_DNS";
+		String file = "data/errorTest.txt";
 		TraceReader t= new TraceReader(file);
 		trace=t.getOctet();
 		pListe=new ArrayList<Protocol>();
