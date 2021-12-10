@@ -1,0 +1,6 @@
+-Decompresser le fichier .ZIP
+-ajouter le fichier .txt a analyser a coter de l'executable analyseur.jar
+-(des fichier trace sont disponible dans data)
+-executer Analyseur.jar
+-refrech
+-un fichier analyse.txt resultant de l'analyse est creer. 
