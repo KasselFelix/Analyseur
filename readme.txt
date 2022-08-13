@@ -1,3 +1,4 @@
+
 class TraceReader:
     
     public TraceReader(String file) :
@@ -50,3 +51,11 @@ class Protocole: Design pattern composit
     public String toString():
         construit une chaine de caractere correspondant a l'analyse de nos trace en recuperant les chaine de caractere obtenu de chaque protocole instancier,
         par un parcours prefixe de notre arbre.
+        
+ __________________________________________________________________________________________________________
+
+PRESENTATION VIDEO :
+
+https://youtu.be/kqDpEsjVv3o
+
+___________________________________________________________________________________________________________
